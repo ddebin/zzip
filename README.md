@@ -1,6 +1,6 @@
-# zzip
+# Zzip
 
-(original home page at [damiendebin.net](http://archives.damiendebin.net/zzip/))
+(original home page at [debin.net/zzip](http://debin.net/zzip/))
 
 A compression tool based on the Burrows-Wheeler Transform method.
 
@@ -25,4 +25,4 @@ Here is a list of its features:
 - support for win95 long filenames
 - self-extracting archive (.exe file)
 
-Current release of Zzip / Zzlib is 0.36c, 04-Jun-2001.
+Current release of Zzip / Zzlib is 0.36c, **04-Jun-2001** (so pretty old stuff !).
