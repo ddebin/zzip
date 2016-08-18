@@ -35,7 +35,13 @@
 #ifndef ZZLIB_H
 #define ZZLIB_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <time.h>
+//#define EXPORT __declspec (dllimport)
+#define EXPORT extern
 
 /* error constants */
 typedef enum
@@ -105,10 +111,10 @@ typedef struct
  * 
  * ZzCompressBlock memory usage : 9 times the size of buffer
  */
-__declspec (dllimport) int ZzCompressBlock(unsigned char *buffer, 
-										   unsigned int  size, 
-										   unsigned int  level,
-										   unsigned int  multimedia);
+EXPORT int ZzCompressBlock(unsigned char *buffer, 
+						   unsigned int  size, 
+						   unsigned int  level,
+						   unsigned int  multimedia);
 
 /*
  * ZzUncompressBlock
@@ -135,7 +141,7 @@ __declspec (dllimport) int ZzCompressBlock(unsigned char *buffer,
  * you can use this information if you don't know the size of the uncompressed 
  * block.
  */
-__declspec (dllimport) int ZzUncompressBlock(unsigned char *buffer);
+EXPORT int ZzUncompressBlock(unsigned char *buffer);
 
 /*
  * OpenArchive
@@ -159,9 +165,9 @@ __declspec (dllimport) int ZzUncompressBlock(unsigned char *buffer);
  * After the function call, you have to check the 'last_error' variable for 
  * possible errors.
  */
-__declspec (dllimport) int OpenArchive(actions action, 
-									   char    *filename, 
-									   info_s  *info);
+EXPORT int OpenArchive(actions action, 
+					   char    *filename, 
+					   info_s  *info);
 
 /*
  * CloseArchive
@@ -180,8 +186,8 @@ __declspec (dllimport) int OpenArchive(actions action,
  * After the function call, you have to check the 'last_error' variable for 
  * possible errors.
  */
-__declspec (dllimport) void CloseArchive(int    handle, 
-										 info_s *info);
+EXPORT void CloseArchive(int    handle, 
+						 info_s *info);
 
 /*
  * SetArchivePointer
@@ -205,9 +211,9 @@ __declspec (dllimport) void CloseArchive(int    handle,
  * After the function call, you have to check the 'last_error' variable for 
  * possible errors.
  */
-__declspec (dllimport) void SetArchivePointer(int    handle, 
-											  char   *filename, 
-											  info_s *info);
+EXPORT void SetArchivePointer(int    handle, 
+							  char   *filename, 
+							  info_s *info);
 
 /*
  * AddFile
@@ -229,12 +235,12 @@ __declspec (dllimport) void SetArchivePointer(int    handle,
  * After the function call, you have to check the 'last_error' variable for 
  * possible errors.
  */
-__declspec (dllimport) void AddFile(int          handle, 
-									char         *filename, 
-									unsigned int compression_level, 
-									unsigned int multimedia, 
-									unsigned int block_size, 
-									info_s       *info);
+EXPORT void AddFile(int          handle, 
+					char         *filename, 
+					unsigned int compression_level, 
+					unsigned int multimedia, 
+					unsigned int block_size, 
+					info_s       *info);
 
 /*
  * TestNextFile
@@ -255,8 +261,8 @@ __declspec (dllimport) void AddFile(int          handle,
  * After the function call, you have to check the 'last_error' variable for 
  * possible errors.
  */
-__declspec (dllimport) void TestNextFile(int    handle, 
-										 info_s *info);
+EXPORT void TestNextFile(int    handle, 
+						 info_s *info);
 
 /*
  * ExtractNextFile
@@ -279,10 +285,10 @@ __declspec (dllimport) void TestNextFile(int    handle,
  * After the function call, you have to check the 'last_error' variable for 
  * possible errors.
  */
-__declspec (dllimport) void ExtractNextFile(int          handle, 
-											char         *filename, 
-											unsigned int with_path, 
-											info_s       *info);
+EXPORT void ExtractNextFile(int          handle, 
+							char         *filename, 
+							unsigned int with_path, 
+							info_s       *info);
 
 /*
  * ListNextFile
@@ -303,8 +309,8 @@ __declspec (dllimport) void ExtractNextFile(int          handle,
  * After the function call, you have to check the 'last_error' variable for 
  * possible errors.
  */
-__declspec (dllimport) void ListNextFile(int    handle,
-										 info_s *info);
+EXPORT void ListNextFile(int    handle,
+						 info_s *info);
 
 /*
  * ListAllFile
@@ -322,8 +328,8 @@ __declspec (dllimport) void ListNextFile(int    handle,
  * After the function call, you have to check the 'last_error' variable for 
  * possible errors.
  */
-__declspec (dllimport) void ListAllFile(int    handle, 
-										info_s **info_array);
+EXPORT void ListAllFile(int    handle, 
+						info_s **info_array);
 
 /*
  * DeleteNextFile
@@ -336,7 +342,7 @@ __declspec (dllimport) void ListAllFile(int    handle,
  * After the function call, you have to check the 'last_error' variable for 
  * possible errors.
  */
-__declspec (dllimport) void DeleteNextFile(int handle);
+EXPORT void DeleteNextFile(int handle);
 
 
 /*
@@ -344,7 +350,7 @@ __declspec (dllimport) void DeleteNextFile(int handle);
  * 
  * Clean unused memory blocks. Useful after an error to clean everything.
  */
-__declspec (dllimport) void CleanMemory();
+EXPORT void CleanMemory();
 
 /* 
  * last_error
@@ -353,9 +359,14 @@ __declspec (dllimport) void CleanMemory();
  * it contains the error number (if last_error>0, last_error stands for 'errno')
  * (cf. errno.h)
  */
-__declspec (dllimport) int last_error;
+EXPORT int last_error;
 
-__declspec (dllimport) int Get_last_error();
+EXPORT int Get_last_error();
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* !ZZLIB_H */
 
