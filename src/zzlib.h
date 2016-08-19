@@ -63,6 +63,8 @@ typedef enum
 	FILE_NOT_FOUND           = -14
 } errors;
 
+#undef DELETE   // fix conflict with winnt.h header
+
 /* actions allowed for 'OpenArchive' */
 typedef enum
 {
