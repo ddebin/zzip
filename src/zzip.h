@@ -35,6 +35,11 @@
 #ifndef ZZIP_H
 #define ZZIP_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 #include "global.h"
 
 extern block_param_s	block;
@@ -84,7 +89,8 @@ uint32     Crc32(uint8*, uint8*, uint32);
 #ifdef ZZLIB
 
 #undef	DLL_EXPORT
-#define	DLL_EXPORT __declspec (dllexport) 
+//#define	DLL_EXPORT __declspec (dllexport) 
+#define	DLL_EXPORT extern
 
 DLL_EXPORT int    ZzCompressBlock(unsigned char*, unsigned int, unsigned int, unsigned int);
 DLL_EXPORT int  ZzUncompressBlock(unsigned char*);
@@ -101,7 +107,7 @@ DLL_EXPORT void       ListAllFile(int, info_s**);
 DLL_EXPORT void       CleanMemory();
 DLL_EXPORT  int    Get_last_error();
 
-DLL_EXPORT extern int last_error;
+extern int last_error;
 
 #else  /* ZZLIB */
 
@@ -119,6 +125,10 @@ void       CleanMemory();
 extern int last_error;
 
 #endif /* ZZLIB */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* !ZZIP_H */
 

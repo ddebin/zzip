@@ -10,8 +10,8 @@ WARNING		= -W -Wall -Wshadow -Wpointer-arith -Winline
 # Optionnal:
 # -fprofile-arcs -fbranch-probabilities
 OPTFLAGS	= -O3 -ffast-math -fforce-addr -fstrict-aliasing -fomit-frame-pointer -foptimize-sibling-calls
-I386		= -mcpu=pentium2 -malign-double -maccumulate-outgoing-args
-SPARC		= -mcpu=v8
+I386		= -march=pentium4 -mtune=pentium4 -malign-double -maccumulate-outgoing-args
+SPARC		= -march=v8
 WINDOWS		= -DWIN32
 UNIX		= -DUNIX
 
@@ -27,6 +27,7 @@ ZZIP_EXE	= zzip.exe
 MAKE_H_EXE	= make_h.exe
 SFX_EXE		= zzip-sfx.exe
 ZZLIB_DLL	= zzlib.dll
+ZZLIB_A		= libzz.a
 
 all : $(ZZIP_EXE)
 
@@ -35,7 +36,7 @@ sfx : $(SFX_EXE)
 dll : $(ZZLIB_DLL)
 
 clean :
-	del *.o zzipstub.sfx sfx_code.h $(ZZIP_EXE) $(MAKE_H_EXE) $(SFX_EXE) $(ZZLIB_DLL) libzzlib.a
+	rm -f *.o zzipstub.sfx sfx_code.h $(ZZIP_EXE) $(MAKE_H_EXE) $(SFX_EXE) $(ZZLIB_DLL) libzzlib.a $(ZZLIB_A)
 
 $(MAKE_H_EXE) : make_h.c
 	$(LD) $(LFLAGS) -o $(MAKE_H_EXE) make_h.c
@@ -65,6 +66,9 @@ $(ZZLIB_DLL) : $(OBJS_ZZLIB)
 	$(LD) $(LFLAGS) -shared -Wl,--out-implib,libzzlib.a,--kill-at -o $(ZZLIB_DLL) $(OBJS_ZZLIB)
 	$(STRIP) $(ZZLIB_DLL)
 
+lib : $(OBJS_ZZLIB)
+	ar rcs $(ZZLIB_A) $(OBJS_ZZLIB)
+	
 $(OBJS_SFX) $(OBJS_ZZLIB) $(OBJS_ZZIP) : global.h zzip.h
 
 zzip.o : zzip.c
