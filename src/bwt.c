@@ -397,7 +397,7 @@ void BWT_Coding(uint32 len,
 		sint32 j;
 		uint16 **deb = p.pointer;
 		uint32 l = m.start[0] - p.pointer;
-		for (j = 0; j < 65536; ++j) 
+        for (j = 0; j < 65535; ++j)
 		{
 			if (l > 1)
 			{
